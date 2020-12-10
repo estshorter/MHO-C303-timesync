@@ -41,10 +41,10 @@ gatt_connection_t* connect(const char* mac_addr) {
         return connection;
     
     void* adapter;
-    if (auto ret = gattlib_adapter_open(nullptr, &adapter);ret) {
+    if (gattlib_adapter_open(nullptr, &adapter)) {
         throw std::runtime_error("Failed to open adapter");
     }
-    if (auto ret = gattlib_adapter_scan_enable(adapter, ble_discovered_device, 6, nullptr); ret){
+    if (gattlib_adapter_scan_enable(adapter, ble_discovered_device, 6, nullptr)){
         throw std::runtime_error("Failed to scan.");
     }
     // reconnect
@@ -82,6 +82,8 @@ int main (void) {
     }
 
     c303_time_t send_data = generate_send_data();
-    gattlib_write_char_by_uuid(connection.get(), uuid_time.get(), send_data.data(), sizeof(send_data));
+    if (gattlib_write_char_by_uuid(connection.get(), uuid_time.get(), send_data.data(), sizeof(send_data))) {
+        std::cerr << "Failed on gattlib_write_char_by_uuid()" << std::endl; 
+    }
     return 0;
 }
