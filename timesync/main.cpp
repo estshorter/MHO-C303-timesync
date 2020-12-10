@@ -9,12 +9,12 @@
 #include <ctime>
 #include <iomanip>
 
-using TimeFormat = std::array<char,5>;
+using c303_time_t = std::array<char,5>;
 
 // https://codereview.stackexchange.com/questions/175353/getting-current-timezone
-TimeFormat generate_send_data()
+c303_time_t generate_send_data()
 {
-    TimeFormat send_data;
+    c303_time_t send_data;
     auto t = std::time(nullptr);
     uint32_t unix_timestamp = std::chrono::seconds(t).count();
     auto const tm = *std::localtime(&t);
@@ -81,7 +81,7 @@ int main (void) {
         return 1;
     }
 
-    TimeFormat send_data = generate_send_data();
+    c303_time_t send_data = generate_send_data();
     gattlib_write_char_by_uuid(connection.get(), uuid_time.get(), send_data.data(), sizeof(send_data));
     return 0;
 }
