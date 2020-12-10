@@ -56,6 +56,12 @@ gatt_connection_t* connect(const char* mac_addr) {
     return connection;
 }
 
+void disconnect(gatt_connection_t *connection) {
+    if (connection == nullptr)
+        return;
+    gattlib_disconnect(connection);
+}
+
 int main (void) {
     constexpr auto uuid_time_char = "EBE0CCB7-7A0A-4B0C-8A1A-6FF2997DA3A6";
     constexpr auto mac = "E7:50:59:21:84:AC";
@@ -66,9 +72,9 @@ int main (void) {
        return 1;
     }
 
-    gatt_connection_t* connection;
+    std::unique_ptr<gatt_connection_t, decltype(&disconnect)> connection(nullptr, disconnect);
     try {
-        connection = connect(mac);
+        connection.reset(connect(mac));
     }
     catch (std::exception &e) {
         std::cerr << e.what() << std::endl;
@@ -76,7 +82,6 @@ int main (void) {
     }
 
     TimeFormat send_data = generate_send_data();
-    gattlib_write_char_by_uuid(connection, uuid_time.get(), send_data.data(), sizeof(send_data));
-    gattlib_disconnect(connection);
+    gattlib_write_char_by_uuid(connection.get(), uuid_time.get(), send_data.data(), sizeof(send_data));
     return 0;
 }
