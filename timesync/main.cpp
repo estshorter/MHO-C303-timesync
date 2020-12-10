@@ -67,7 +67,7 @@ int main (void) {
     constexpr auto mac = "E7:50:59:21:84:AC";
 
     std::unique_ptr<uuid_t> uuid_time(new uuid_t());
-    if (auto err = gattlib_string_to_uuid(uuid_time_char, strlen(uuid_time_char), uuid_time.get()); err != GATTLIB_SUCCESS) {
+    if (gattlib_string_to_uuid(uuid_time_char, strlen(uuid_time_char), uuid_time.get())) {
        std::cerr << "Failed to convert uuid_char to uuid_t" << std::endl; 
        return 1;
     }
