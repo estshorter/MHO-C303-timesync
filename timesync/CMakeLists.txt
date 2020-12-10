@@ -12,8 +12,10 @@ target_compile_features(c303-timesync PRIVATE cxx_std_17)
 install(TARGETS c303-timesync 
         RUNTIME DESTINATION bin)
 install(
-    FILES c303-timesync
+    FILES cron-c303-timesync
     PERMISSIONS OWNER_EXECUTE OWNER_WRITE OWNER_READ
+    GROUP_EXECUTE GROUP_READ
+    WORLD_EXECUTE WORLD_READ 
     DESTINATION /etc/cron.weekly
 )
         
