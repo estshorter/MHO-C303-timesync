@@ -6,5 +6,8 @@ Tested on Raspberry Pi 4 Model B.
 
 (image from [ble-monitor](https://github.com/custom-components/ble_monitor))
 
-## Reference
+## Dependencies
+- [gattlib](https://github.com/labapart/gattlib)
+
+## References
 - [lywsd02](https://github.com/h4/lywsd02)
