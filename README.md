@@ -5,3 +5,6 @@ Tested on Raspberry Pi 4 Model B.
 ![mho-c303](https://raw.githubusercontent.com/custom-components/ble_monitor/master/pictures/MHO-C303.png)
 
 (image from [ble-monitor](https://github.com/custom-components/ble_monitor))
+
+## Reference
+- [lywsd02](https://github.com/h4/lywsd02)
